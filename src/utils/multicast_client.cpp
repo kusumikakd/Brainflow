@@ -40,6 +40,8 @@ int MultiCastClient::init ()
     // ensure that library will not hang in blocking recv/send call
     DWORD timeout = 5000;
     DWORD value = 1;
+    DWORD ttl = 5;
+    setsockopt (client_socket, IPPROTO_IP, IP_MULTICAST_TTL, (char *)&ttl, sizeof (ttl));
     setsockopt (client_socket, SOL_SOCKET, SO_REUSEADDR, (char *)&value, sizeof (value));
     setsockopt (client_socket, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeout, sizeof (timeout));
     setsockopt (client_socket, SOL_SOCKET, SO_SNDTIMEO, (char *)&timeout, sizeof (timeout));
@@ -116,6 +118,8 @@ int MultiCastClient::init ()
     tv.tv_sec = 5;
     tv.tv_usec = 0;
     int value = 1;
+    int ttl = 5;
+    setsockopt (client_socket, IPPROTO_IP, IP_MULTICAST_TTL, (char *)&ttl, sizeof (ttl));
     setsockopt (client_socket, SOL_SOCKET, SO_REUSEADDR, &value, sizeof (value));
     setsockopt (client_socket, SOL_SOCKET, SO_RCVTIMEO, (const char *)&tv, sizeof (tv));
     setsockopt (client_socket, SOL_SOCKET, SO_SNDTIMEO, (const char *)&tv, sizeof (tv));
